@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabian-Launcher - Minecraft Java Edition pe Android</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        .glow-effect {
+            box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.3);
+        }
+
+        .glow-button {
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .glow-button:hover {
+            box-shadow: 0 0 40px rgba(16, 185, 129, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col justify-between">
+
+    <!-- Fundal Animat cu Particule -->
+    <canvas id="particles"></canvas>
+
+    <!-- Header / Navigatie -->
+    <header class="relative z-10 border-b border-gray-800/60 bg-gray-950/40 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-green-400 flex items-center justify-center font-black text-xl text-gray-950 shadow-lg shadow-emerald-500/20">
+                    FL
+                </div>
+                <span class="text-xl font-extrabold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-emerald-400">
+                    FABIAN-LAUNCHER
+                </span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    v1.0-RELEASE
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sectiune Principala (Hero) -->
+    <main class="relative z-10 max-w-7xl mx-auto px-6 py-16 flex-grow flex flex-col justify-center items-center text-center">
+        
+        <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium mb-8 animate-bounce">
+            <i class="fa-solid fa-bolt text-xs"></i>
+            <span>Optimizat pentru performanță maximă pe mobil</span>
+        </div>
+
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight max-w-4xl leading-tight mb-6">
+            Joacă Minecraft Java Edition pe telefonul tău cu <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-200">Fabian-Launcher</span>
+        </h1>
+
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">
+            Ieși în evidență cu o interfață modernă, animată și intuitivă. Suport complet pentru versiuni Java, Forge, Fabric, OptiFine și controale tactile customizabile.
+        </p>
+
+        <!-- Buton Descarca -->
+        <div class="flex flex-col sm:flex-row gap-4 w-full justify-center max-w-md mb-16">
+            <button onclick="downloadAPK()" class="glow-button w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-green-500 text-gray-950 font-extrabold text-lg flex items-center justify-center space-x-3 cursor-pointer">
+                <i class="fa-solid fa-download text-xl"></i>
+                <span>Descarcă APK (Fabian-Launcher)</span>
+            </button>
+        </div>
+
+        <!-- Caracteristici -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left max-w-5xl">
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl mb-4">
+                    <i class="fa-solid fa-sliders"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Control RAM & GPU</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Alocare dinamică de memorie RAM și drivere de randare avansate (Vulkan / Holy GL4ES) pentru FPS ridicat.</p>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl mb-4">
+                    <i class="fa-solid fa-cubes"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Suport Moduri & Shaders</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Instalează ușor Forge, Fabric, OptiFine și pachete de resurse direct din interfața launcher-ului.</p>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl mb-4">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Controale Tactile Custom</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Personalizează opțiunile tactile de pe ecran, adaugă butoane custom sau conectează un controller Bluetooth.</p>
+            </div>
+        </div>
+
+        <!-- Ghid Instalare -->
+        <div class="glass-card p-8 rounded-2xl w-full max-w-3xl mt-12 text-left">
+            <h3 class="text-xl font-bold mb-4 flex items-center space-x-2">
+                <i class="fa-solid fa-circle-info text-emerald-400"></i>
+                <span>Cum se instalează pe Android:</span>
+            </h3>
+            <ol class="list-decimal list-inside text-gray-300 space-y-2 text-sm">
+                <li>Apasă butonul verde <strong class="text-white">„Descarcă APK”</strong> de mai sus.</li>
+                <li>Deschide fișierul <code class="bg-gray-800 px-2 py-0.5 rounded text-emerald-400">Fabian-Launcher.apk</code> descărcat.</li>
+                <li>Dacă sistemul îți cere permisiunea, activează <strong class="text-white">„Permite instalarea din surse necunoscute”</strong>.</li>
+                <li>Apasă <strong class="text-white">Instalează</strong>, deschide aplicația și alege versiunea dorită de Minecraft Java!</li>
+            </ol>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-gray-800/60 bg-gray-950/60 py-6 text-center text-xs text-gray-500">
+        <p>© 2026 Fabian-Launcher Project. Minecraft este o marcă înregistrată a Mojang Synergies AB.</p>
+    </footer>
+
+    <!-- Script Descărcare și Particule -->
+    <script>
+        function downloadAPK() {
+            // Se creeaza un fisier APK demonstrativ si se initiaza descarcarea
+            const apkContent = "Fabian-Launcher Android Package File";
+            const blob = new Blob([apkContent], { type: "application/vnd.android.package-archive" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "Fabian-Launcher.apk";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Animatie particule de fundal
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const particles = Array.from({ length: 45 }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 1,
+            speedX: (Math.random() - 0.5) * 0.5,
+            speedY: (Math.random() - 0.5) * 0.5,
+            opacity: Math.random() * 0.5 + 0.1
+        }));
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+
+                ctx.fillStyle = `rgba(16, 185, 129, ${p.opacity})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
